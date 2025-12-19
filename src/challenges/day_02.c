@@ -1,8 +1,8 @@
 // C standard headers
 #include <stdio.h>
 #include <stdbool.h>
-#include <string.h>
 #include <stdlib.h>
+#include <string.h>
 // Local headers
 #include <challenge.h>
 #include <feed.h>
@@ -10,7 +10,7 @@
 const char delimiter = ',';
 const char *dataFileName = "./data/day_02.txt";
 
-#define STR_LEN 256
+#define TEXT_LEN 256
 
 static bool get_range(const char *line, int64_t *start, int64_t *end);
 static bool is_duplicate(const char *number, size_t length);
@@ -22,9 +22,9 @@ ErrorData evaluate(InputData *input, Answer *result) {
     for(char *line = get_linefeed(&feed); line != NULL; line = get_linefeed(&feed)) {
         int64_t start, end;
         if(get_range(line, &start, &end)) continue;
-        char numberText[STR_LEN];
+        char numberText[TEXT_LEN];
         for(int64_t i = start; i <= end; i++) {
-            snprintf(numberText, STR_LEN, "%lld", i);
+            snprintf(numberText, TEXT_LEN, "%lld", i);
             if(is_duplicate(numberText, strlen(numberText)))
                 result->output += i;
         }
