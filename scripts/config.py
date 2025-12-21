@@ -13,7 +13,7 @@ class Config:
     CC            = "gcc"
     STANDARD      = "-std=c17"
     DEBUG_FLAGS   = "-g -O0 -Wall -Werror"
-    RELEASE_FLAGS = "-O2 -DNDEBUG -fsanitize=address,undefined -fno-omit-frame-pointer"
+    RELEASE_FLAGS = "-O2 -DNDEBUG"
     SOURCE_EXT    = ".c"
 
     def __init__(self, debug: bool):
