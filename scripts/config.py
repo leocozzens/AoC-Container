@@ -93,7 +93,7 @@ class Config:
             print(f"{pre}🔨 Compiling {basename(program.source)} to {basename(program.exec)}")
             if printCommands:
                 print(*program.command, sep=' ')
-            subprocess.run(program.command, shell=True)
+            subprocess.run(' '.join(program.command), shell=True)
 
     def print(self):
         for program in self.programs:

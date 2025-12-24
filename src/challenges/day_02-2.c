@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
+#include <inttypes.h>
 // Local headers
 #include <challenge.h>
 #include <feed.h>
@@ -24,7 +25,7 @@ ErrorData evaluate(InputData *input, Answer *result) {
         if(get_range(line, &start, &end)) continue;
         char numberText[TEXT_LEN];
         for(int64_t i = start; i <= end; i++) {
-            int status = snprintf(numberText, TEXT_LEN, "%lld", i);
+            int status = snprintf(numberText, TEXT_LEN, "%" PRId64, i);
             if(status < 0)
                 return CONSTRUCT_ERROR(
                     CHALLENGE_ENCODING_FAILURE,

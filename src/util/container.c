@@ -1,6 +1,7 @@
 // Standard headers
 #include <stdio.h>
 #include <stdlib.h>
+#include <inttypes.h>
 // Local headers
 #include <loader.h>
 #include <challenge.h>
@@ -50,7 +51,7 @@ static void clean_container(InputData *input) {
 }
 
 static void print_challenge_result(Answer *result) {
-    printf("%s: %lld\n", result->name, result->output);
+    printf("%s: %" PRId64 "\n", result->name, result->output);
 }
 
 static void print_challenge_failure(ErrorData *error, const char *region) {

@@ -45,50 +45,55 @@ ErrorData load_raw(RawInput *raw, const char *name) {
 }
 
 ErrorData find_lines(InputData *input) {
-    size_t index;
-    if(find_first_text(input->raw.data, input->raw.size, &index))
+    size_t first;
+    if(find_first_text(input->raw.data, input->raw.size, &first))
         return CONSTRUCT_ERROR(
             CHALLENGE_NO_READ,
             "Failed to find any non-delimiter characters"
         );
-    for(size_t index = 1; index < input->raw.size - 1; index++) {
-
+    size_t index = first;
+    while(index < input->raw.size) {
         if(delimiter == '\n' && input->raw.data[index] == '\r') {
-            input->raw.data[index] = '\0';
+            input->raw.data[index++] = '\0';
             continue;
         }
-        if(input->raw.data[index] == delimiter) {
-            input->raw.data[index] = '\0';
-            input->grid.height++;
-            while(input->raw.data[index + 1] == delimiter) {
-                index++;
-                input->raw.data[index] = '\0';
-            }
+        if(input->raw.data[index] != delimiter) {
+            index++;
+            continue;
         }
+        do {
+            input->raw.data[index++] = '\0';
+        } while(
+            index < input->raw.size &&
+            input->raw.data[index] == delimiter
+        );
+        if(index < input->raw.size)
+            input->grid.height++;
+        else
+            break;
     }
 
     input->grid.lines = malloc(sizeof(char*) * input->grid.height);
     if(input->grid.lines == NULL)
         return CONSTRUCT_ERROR(CHALLENGE_NO_MEMORY, "Failed to allocate input data memory");
     size_t gridPosition = 0;
-    input->grid.lines[gridPosition++] = (input->raw.data == delimiter) ? input;
-    for(
-        size_t index = 0;
-        index < input->raw.size - 1 && gridPosition < input->grid.height;
-        index++
-    ) {
-        if(input->raw.data[index] == '\0') {
-            input->grid.lines[gridPosition++] = input->raw.data + index + 1;
-            while(input->raw.data[index + 1] == delimiter)
-                index++;
+    index = first;
+    input->grid.lines[gridPosition++] = input->raw.data + index;
+    while(index < input->raw.size - 1 && gridPosition < input->grid.height) {
+        if(input->raw.data[index] != '\0') {
+            index++;
+            continue;
         }
+        while(++index < input->raw.size && input->raw.data[index] == '\0');
+        if(index >= input->raw.size) break;
+        input->grid.lines[gridPosition++] = input->raw.data + index++;
     }
     return emptySuccess;
 }
 
 static bool find_first_text(char *data, size_t length, size_t *index) {
     for(size_t i = 0; i < length; i++) {
-        if(data[i] != '\0') {
+        if(data[i] != delimiter) {
             *index = i;
             return false;
         }

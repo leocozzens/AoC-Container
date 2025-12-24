@@ -45,11 +45,11 @@ ErrorData evaluate(InputData *input, Answer *result) {
                 );
             data++;
         }
-        // result->output += atoi(numberText);
+        result->output += atoi(numberText);
         result->output += (numberText[0] - '0') * 10 + numberText[1] - '0';
     }
     timespec_get(&end, TIME_UTC);
-    printf("sec: %lld, nsec: %ld\n", end.tv_sec - start.tv_sec, end.tv_nsec - start.tv_nsec);
+    printf("sec: %ld, nsec: %ld\n", end.tv_sec - start.tv_sec, end.tv_nsec - start.tv_nsec);
     return emptySuccess;
 }
 
