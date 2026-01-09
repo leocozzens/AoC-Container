@@ -13,7 +13,7 @@ static void print_challenge_failure(ErrorData *error, const char *region);
 
 ErrorData emptySuccess = { CHALLENGE_SUCCESS, NULL };
 ErrorData emptyFailure = { CHALLENGE_FAILURE, NULL };
-static InputData emptyInput = { { NULL, 0 }, { NULL, 1 } };
+static InputData emptyInput = { { NULL, 0 }, { NULL, 0 } };
 static Answer emptyResult = { "NO TYPE", 0 };
 
 int main(void) {
