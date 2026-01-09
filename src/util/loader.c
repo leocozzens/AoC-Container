@@ -36,6 +36,8 @@ ErrorData find_lines(InputData *input) {
         return CONSTRUCT_ERROR(CHALLENGE_NO_MEMORY, "Failed to allocate input data memory");
     input->grid = newGrid;
     add_lines(first, input);
+
+    
     return emptySuccess;
 }
 
@@ -66,6 +68,8 @@ static ErrorData load_data(FILE *inputFile, RawInput *raw) {
     raw->data[raw->size] = '\0';
     return emptySuccess;
 }
+
+// static ErrorData 
 // TODO: Combine all 3 functions
 static bool find_first_text(RawInput *raw, size_t *index) {
     for(size_t i = 0; i < raw->size - 1; i++) {
