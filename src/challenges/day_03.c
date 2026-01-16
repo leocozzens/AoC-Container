@@ -7,10 +7,6 @@
 #include <challenge.h>
 #include <feed.h>
 
-// TMP
-#include <stdio.h>
-#include <time.h>
-
 #define NUMBER_DIGITS 2
 
 const char delimiter = '\n';
@@ -20,12 +16,9 @@ static char *find_highest_digit(char *line, size_t length, bool first);
 
 ErrorData evaluate(InputData *input, Answer *result) {
     *result = (Answer) { "Total output joltage", 0 };
-    struct timespec start, end;
 
     LineFeed feed = create_linefeed(input);
-    timespec_get(&start, TIME_UTC);
     for(char *line = get_linefeed(&feed); line != NULL; line = get_linefeed(&feed)) {
-        printf("%s\n", line);
         char numberText[NUMBER_DIGITS + 1];
         numberText[NUMBER_DIGITS] = '\0';
         char *data = line;
@@ -48,8 +41,6 @@ ErrorData evaluate(InputData *input, Answer *result) {
         result->output += atoi(numberText);
         result->output += (numberText[0] - '0') * 10 + numberText[1] - '0';
     }
-    timespec_get(&end, TIME_UTC);
-    printf("sec: %ld, nsec: %ld\n", end.tv_sec - start.tv_sec, end.tv_nsec - start.tv_nsec);
     return emptySuccess;
 }
 

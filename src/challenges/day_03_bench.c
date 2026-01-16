@@ -7,9 +7,10 @@
 #include <challenge.h>
 #include <feed.h>
 
-// TMP
+// BENCH HEADERS
 #include <stdio.h>
 #include <time.h>
+#include <inttypes.h>
 
 #define NUMBER_DIGITS 2
 
@@ -49,7 +50,10 @@ ErrorData evaluate(InputData *input, Answer *result) {
         result->output += (numberText[0] - '0') * 10 + numberText[1] - '0';
     }
     timespec_get(&end, TIME_UTC);
-    printf("sec: %ld, nsec: %ld\n", end.tv_sec - start.tv_sec, end.tv_nsec - start.tv_nsec);
+    printf("sec: %" PRIdMAX ", nsec: %" PRIdMAX "\n",
+        (intmax_t) end.tv_sec - start.tv_sec,
+        (intmax_t) end.tv_nsec - start.tv_nsec
+    );
     return emptySuccess;
 }
 

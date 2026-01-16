@@ -3,7 +3,7 @@
 
 #include <container.h>
 
-ErrorData load_raw(RawInput *raw, const char *name);
-ErrorData find_lines(InputData *input);
+ErrorData load_raw(const char *name, RawInput *raw_out);
+ErrorData find_lines(RawInput *raw, LineGrid *grid_out);
 
 #endif

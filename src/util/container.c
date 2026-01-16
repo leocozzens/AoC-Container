@@ -38,9 +38,9 @@ static ErrorData load_container(InputData *input, Answer *result) {
     *input = emptyInput;
     *result = emptyResult;
     ErrorData error;
-    error = load_raw(&input->raw, dataFileName);
+    error = load_raw(dataFileName, &input->raw);
     if(IS_SUCCESS(error))
-        error = find_lines(input);
+        error = find_lines(&input->raw, &input->grid);
     return error;
 }
 
