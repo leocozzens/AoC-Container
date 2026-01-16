@@ -5,8 +5,11 @@
 #include <challenge.h>
 #include <feed.h>
 
-const char delimiter = '\n';
-const char *dataFileName = "./data/day_01.txt";
+EvalOptions opts = { 
+    .delimiter = '\n',
+    .dataFileName = "./data/day_01.txt",
+    .benchmark = false
+};
 
 ErrorData evaluate(InputData *input, Answer *result) {
     *result = (Answer) { "Password", 0 };

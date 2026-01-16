@@ -8,8 +8,11 @@
 #include <challenge.h>
 #include <feed.h>
 
-const char delimiter = ',';
-const char *dataFileName = "./data/day_02.txt";
+EvalOptions opts = { 
+    .delimiter = ',',
+    .dataFileName = "./data/day_02.txt",
+    .benchmark = false
+};
 
 #define TEXT_LEN 256
 

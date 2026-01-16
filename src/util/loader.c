@@ -33,8 +33,8 @@ ErrorData find_lines(RawInput *raw, LineGrid *grid_out) {
     bool separated = true;
     for(size_t index = 0; index < raw->size; index++) {
         if(
-            (delimiter == '\n' && raw->data[index] == '\r') ||
-            raw->data[index] == delimiter
+            (opts.delimiter == '\n' && raw->data[index] == '\r') ||
+            raw->data[index] == opts.delimiter
         ) {
             separated = true;
             raw->data[index] = '\0';
@@ -94,7 +94,6 @@ static ErrorData load_data(FILE *inputFile, RawInput *raw_out) {
     *raw_out = newRaw;
     return emptySuccess;
 }
-
 
 static ErrorData realloc_lines(LineGrid *grid, size_t newCapacity) {
     char **oldLines = grid->lines;

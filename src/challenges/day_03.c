@@ -9,8 +9,11 @@
 
 #define NUMBER_DIGITS 2
 
-const char delimiter = '\n';
-const char *dataFileName = "./data/sample.txt";
+EvalOptions opts = { 
+    .delimiter = '\n',
+    .dataFileName = "./data/day_03.txt",
+    .benchmark = false
+};
 
 static char *find_highest_digit(char *line, size_t length, bool first);
 

@@ -5,6 +5,7 @@
 // Local headers
 #include <loader.h>
 #include <challenge.h>
+#include <extras.h>
 
 static ErrorData load_container(InputData *input, Answer *result);
 static void clean_container(InputData *input);
@@ -24,7 +25,8 @@ int main(void) {
     if(IS_FAILURE(error))
         print_challenge_failure(&error, "CONTAINER");
     else {
-        error = evaluate(&input, &result);
+        error = (opts.benchmark) ?
+        ext_bench_eval(&input, &result) : evaluate(&input, &result);
         if(IS_SUCCESS(error))
             print_challenge_result(&result);
         else
@@ -38,7 +40,7 @@ static ErrorData load_container(InputData *input, Answer *result) {
     *input = emptyInput;
     *result = emptyResult;
     ErrorData error;
-    error = load_raw(dataFileName, &input->raw);
+    error = load_raw(opts.dataFileName, &input->raw);
     if(IS_SUCCESS(error))
         error = find_lines(&input->raw, &input->grid);
     return error;
